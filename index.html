@@ -120,6 +120,23 @@
 <script>
 "use strict";
 /* ----------------------------------------------------------------------------
+   Auto-expiry: the app self-disables on this date (20 days after publish).
+   This also stops any offline / home-screen copy, since the date is baked in.
+---------------------------------------------------------------------------- */
+const EXPIRY_MS = Date.parse("2026-07-04T00:00:00Z"); // Jul 4, 2026
+if (Date.now() > EXPIRY_MS) {
+  document.documentElement.innerHTML =
+    '<body style="margin:0;min-height:100vh;display:flex;align-items:center;' +
+    'justify-content:center;background:#15171c;color:#e8eaf0;font-family:' +
+    '-apple-system,system-ui,sans-serif;text-align:center;padding:24px;">' +
+    '<div><div style="font-size:46px;margin-bottom:14px;">⛔</div>' +
+    '<div style="font-size:19px;font-weight:700;">This chord app has expired</div>' +
+    '<div style="color:#9aa1b1;font-size:14px;margin-top:8px;line-height:1.5;">' +
+    'It was set to deactivate on Jul 4, 2026.<br>Ask for an updated version to keep using it.</div>' +
+    '</div></body>';
+  throw new Error("expired"); // halt the rest of the app
+}
+/* ----------------------------------------------------------------------------
    Chord Encyclopedia — ukulele + standard guitar.
    Voicings are computed algorithmically from chord formulas and the open-string
    tuning, then ranked for playability. Nothing is hard-coded per chord, so every
