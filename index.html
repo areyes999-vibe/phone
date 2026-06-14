@@ -284,7 +284,7 @@ function countFingers(v, open){
   if(!fretted.length) return 0;
   const minF = Math.min(...fretted);
   const byFret = {};
-  v.forEach((f)=>{ if(f>0) (byFret[f]=byFret[f]||0)+1; });
+  v.forEach((f)=>{ if(f>0) byFret[f]=(byFret[f]||0)+1; });
   let fingers=0;
   for(const f in byFret){
     // a barre at the lowest fret across multiple strings = 1 finger
